@@ -21,9 +21,6 @@ kind: AWSManagedControlPlane
 metadata:
   name: capi-quickstart-eks-control-plane
 spec:
-  identityRef:
-    kind: AWSClusterStaticIdentity
-    name: 6710415e533b411b991a8c0ba24eb9a4-aws-jayanth
   region: us-west-2
   sshKeyName: jayanth
   version: v1.23.8
