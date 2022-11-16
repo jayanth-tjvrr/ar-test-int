@@ -28,9 +28,6 @@ metadata:
 spec:
   region: us-west-2
   sshKeyName: jayanth
-  identityRef:
-    kind: AWSClusterStaticIdentity
-    name: 9e83c7a63e5d42f2abe6af0072060c99-aws
   controlPlaneLoadBalancer:
     healthCheckProtocol: TCP
   # Optional: Add additional tags to aws resources
