@@ -34,9 +34,6 @@ spec:
     name: 9e83c7a63e5d42f2abe6af0072060c99-aws
   region: us-west-2
   sshKeyName: jayanth
-  additionalTags:
-    ClusterName: {{ .Values.global.clusterName }}
-    DuFQDN: {{ .Values.global.dufqdn }}
 ---
 apiVersion: controlplane.cluster.x-k8s.io/v1beta1
 kind: NodeletControlPlane
