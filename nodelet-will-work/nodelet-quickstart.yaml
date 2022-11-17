@@ -2,15 +2,14 @@ apiVersion: cluster.x-k8s.io/v1beta1
 kind: Cluster
 metadata:
   name: quickstart-nodelet
-  namespace: quickstart-nodelet
 spec:
   clusterNetwork:
     pods:
       cidrBlocks:
-        - 192.168.0.0/16
+      - 192.168.0.0/16
     services:
       cidrBlocks:
-        - 192.169.0.0/16
+      - 192.169.0.0/16
   controlPlaneRef:
     apiVersion: controlplane.cluster.x-k8s.io/v1beta1
     kind: NodeletControlPlane
@@ -24,67 +23,66 @@ apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
 kind: AWSCluster
 metadata:
   name: quickstart-nodelet
-  namespace: quickstart-nodelet
 spec:
-  region: us-west-2
-  sshKeyName: jayanth
-  controlPlaneLoadBalancer:
-    healthCheckProtocol: TCP
   additionalTags:
     ClusterName: quickstart-nodelet
     DuFQDN: testingargocd.platform9.horse
+  controlPlaneLoadBalancer:
+    healthCheckProtocol: TCP
+  identityRef:
+    kind: AWSClusterStaticIdentity
+    name: 3b8f28f6ab5c4ae98fadb53ab15d5908-aws
+  region: us-west-2
+  sshKeyName: jayanth
 ---
 apiVersion: controlplane.cluster.x-k8s.io/v1beta1
 kind: NodeletControlPlane
 metadata:
   name: quickstart-nodelet-control-plane
-  namespace: quickstart-nodelet
 spec:
+  apiserver:
+    privileged: true
+  cni:
+    calico:
+      IPIPMode: Always
+      natOutgoing: true
   machineTemplate:
     infrastructureRef:
       apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
       kind: AWSMachineTemplate
       name: quickstart-nodelet-control-plane
-    nodeletConfigSpec: 
+    nodeletConfigSpec:
       labels:
         key: value
   replicas: 1
-  version: 1.21.10
-  cni:
-    calico:
-      natOutgoing: true
-      IPIPMode: "Always"
   schedulable: true
-  apiserver:
-    privileged: true 
+  version: 1.21.10
 ---
 apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
 kind: AWSMachineTemplate
 metadata:
   name: quickstart-nodelet-control-plane
-  namespace: quickstart-nodelet
 spec:
   template:
     spec:
-      publicIP: true
-      rootVolume:
-        size: 50
-        type: gp3
-      nonRootVolumes:
-        - size: 100
-          type: gp3
-          deviceName: /dev/xvdb
       ami:
         id: ami-0b99000c6e2e4f2bf
       iamInstanceProfile: control-plane.cluster-api-provider-aws.sigs.k8s.io
       instanceType: t2.medium
+      nonRootVolumes:
+      - deviceName: /dev/xvdb
+        size: 100
+        type: gp3
+      publicIP: true
+      rootVolume:
+        size: 50
+        type: gp3
       sshKeyName: jayanth
 ---
 apiVersion: cluster.x-k8s.io/v1beta1
 kind: MachineDeployment
 metadata:
   name: quickstart-nodelet-md-0
-  namespace: quickstart-nodelet
 spec:
   clusterName: quickstart-nodelet
   replicas: 1
@@ -112,35 +110,33 @@ apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
 kind: AWSMachineTemplate
 metadata:
   name: quickstart-nodelet-md-0
-  namespace: quickstart-nodelet
 spec:
   template:
     spec:
-      publicIP: true
-      rootVolume:
-        size: 50
-        type: gp3
-      nonRootVolumes:
-        - size: 100
-          type: gp3
-          deviceName: /dev/xvdb
       ami:
         id: ami-0b99000c6e2e4f2bf
       iamInstanceProfile: nodes.cluster-api-provider-aws.sigs.k8s.io
       instanceType: t2.medium
+      nonRootVolumes:
+      - deviceName: /dev/xvdb
+        size: 100
+        type: gp3
+      publicIP: true
+      rootVolume:
+        size: 50
+        type: gp3
       sshKeyName: jayanth
 ---
 apiVersion: bootstrap.cluster.x-k8s.io/v1beta1
 kind: NodeletConfigTemplate
 metadata:
   name: quickstart-nodelet-md-0
-  namespace: quickstart-nodelet
 spec:
   template:
-    spec: 
+    spec:
       labels:
         key: value
       taints:
-        - key: "key"
-          value: "val"
-          effect: PreferNoSchedule
+      - effect: PreferNoSchedule
+        key: key
+        value: val

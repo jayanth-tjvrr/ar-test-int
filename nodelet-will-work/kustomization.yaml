@@ -1,0 +1,5 @@
+resources:
+- nodelet-quickstart.yaml
+
+configurations:
+- configurations.yaml
