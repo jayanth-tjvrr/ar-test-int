@@ -24,9 +24,6 @@ kind: AWSCluster
 metadata:
   name: quickstart-nodelet
 spec:
-  additionalTags:
-    ClusterName: quickstart-nodelet
-    DuFQDN: test-du-bare-os-u20-2336294.platform9.horse
   controlPlaneLoadBalancer:
     healthCheckProtocol: TCP
   identityRef:
