@@ -8,6 +8,8 @@ nameReference:
     kind: MachineDeployment
   - path: spec/template/spec/clusterName
     kind: MachineDeployment
+  - path: spec/additionalTags/clusterName
+    kind: AWSCluster
 - kind: AWSCluster
   group: infrastructure.cluster.x-k8s.io
   version: v1beta1
