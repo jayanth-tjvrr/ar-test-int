@@ -26,7 +26,7 @@ metadata:
 spec:
   additionalTags:
     ClusterName: quickstart-nodelet
-    DuFQDN: testingargocd.platform9.horse
+    DuFQDN: test-du-bare-os-u20-2336294.platform9.horse
   controlPlaneLoadBalancer:
     healthCheckProtocol: TCP
   identityRef:
