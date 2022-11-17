@@ -25,7 +25,7 @@ metadata:
   name: quickstart-nodelet
 spec:
   additionalTags:
-    ClusterName: quickstart-nodelet
+    clusterName: quickstart-nodelet
     DuFQDN: testingargocd.platform9.horse
   controlPlaneLoadBalancer:
     healthCheckProtocol: TCP
