@@ -16,3 +16,9 @@ pathces:
       kind: AWSMachineTemplate
       name: .*
     path: awsmachinetemplate-details.yaml
+  - target:
+      group: cluster.x-k8s.io
+      version: v1beta1
+      kind: MachineDeployment
+      name: .*
+    path: machinedeployment-details.yaml
