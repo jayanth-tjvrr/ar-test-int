@@ -22,7 +22,7 @@ metadata:
   name: capi-quickstart-eks-control-plane
 spec:
   region: us-west-2
-  sshKeyName: jayanth
+  sshKeyName: jay
   version: v1.23.8
 ---
 apiVersion: cluster.x-k8s.io/v1beta1
